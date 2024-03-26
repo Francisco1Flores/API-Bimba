@@ -2,8 +2,6 @@ package com.negocioBimba.negocioBimba.service.impl;
 
 
 import com.negocioBimba.negocioBimba.DTO.ProductDto;
-import com.negocioBimba.negocioBimba.Exceptions.ErrorMessage;
-import com.negocioBimba.negocioBimba.Exceptions.ProductNotFoundException;
 import com.negocioBimba.negocioBimba.converters.ProductConverter;
 import com.negocioBimba.negocioBimba.domain.Product;
 import com.negocioBimba.negocioBimba.repository.ProductoRepository;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ModelMapper modelMapper;
 
-
+    
     @Override
     public ResponseEntity<?> create(ProductDto productDto) throws Exception {
         Product product = productoRepository.save(productConverter.toEntity(productDto));
@@ -51,21 +48,13 @@ public class ProductServiceImpl implements ProductService {
                                                 .build()
                                         ,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(Message.builder()
-                                            .object(productDto)
-                                            .message("Product found")
-                                            .build()
-                                    ,HttpStatus.OK);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> getAllProducts() {
         List<ProductDto> listDto = productConverter.toDto(productoRepository.findAll());
-        return new ResponseEntity<>(Message.builder()
-                                            .object(listDto)
-                                            .message("")
-                                            .build()
-                                    ,HttpStatus.OK);
+        return new ResponseEntity<>(listDto, HttpStatus.OK);
     }
 
     @Override
@@ -79,6 +68,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<?> update(Integer id, ProductDto productDto) {
+
         productDto.setId(id);
 
         Product existingProduct = productoRepository.findById(id).orElse(null);
@@ -86,9 +76,9 @@ public class ProductServiceImpl implements ProductService {
             Product newProduct = productoRepository.save(productConverter.toEntity(productDto));
             return new ResponseEntity<>(Message.builder()
                     .message("Product created")
-                    .object(productConverter.toDto(newProduct)).build()
+                    .object(productConverter.toDto(newProduct))
+                    .build()
                     ,HttpStatus.CREATED);
-
         }
 
         Product updateProduct = productConverter.toEntity(productDto);
@@ -98,8 +88,9 @@ public class ProductServiceImpl implements ProductService {
         productoRepository.save(existingProduct);
 
         return new ResponseEntity<>(Message.builder()
-                                            .message("Product updated")
-                                            .object(productConverter.toDto(existingProduct)).build()
-                                    ,HttpStatus.OK);
+                .message("Product updated")
+                .object(productConverter.toDto(existingProduct))
+                .build()
+                ,HttpStatus.OK);
     }
 }

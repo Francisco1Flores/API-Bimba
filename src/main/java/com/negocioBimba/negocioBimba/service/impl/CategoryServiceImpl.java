@@ -39,10 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryDto categoryDto = categoryConverter.toDto(categoryRepository.findById(id).orElse(null));
 
         if (categoryDto == null) {
-            return new ResponseEntity<>(Message.builder().object(null)
-                                                .message("Category not found")
-                                                .build()
-                                        ,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Message.builder()
+                    .object(null)
+                    .message("Category not found")
+                    .build()
+                    ,HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(Message.builder()
@@ -55,10 +56,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<?> getAll() {
         List<CategoryDto> categoryDtoList = categoryConverter.toDto(categoryRepository.findAll());
+
+
         return new ResponseEntity<>(Message
                 .builder()
                 .object(categoryDtoList)
                 .message("Categories found")
+                .build()
                 ,HttpStatus.OK);
     }
 
