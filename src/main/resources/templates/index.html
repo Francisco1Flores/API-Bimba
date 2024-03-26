@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bimba</title>
+</head>
+<body>
+<header>
+    <h1>Bimba</h1>
+</header>
+<div>
+    <table>
+        <tr>
+            <th><a href="localhost:8080/cliente" th:href="@{/cliente}">Clientes</a></th>
+            <th><a href="localhost:8080/pedidos" th:href="@{/pedidos}">Pedidos</a></th>
+            <th><a href="localhost:8080/productos" th:href="@{/productos}">Productos</a></th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
