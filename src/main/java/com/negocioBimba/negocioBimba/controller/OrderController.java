@@ -1,4 +1,4 @@
-package com.negocioBimba.negocioBimba.web;
+package com.negocioBimba.negocioBimba.controller;
 
 import com.negocioBimba.negocioBimba.domain.Order;
 import com.negocioBimba.negocioBimba.service.OrderService;

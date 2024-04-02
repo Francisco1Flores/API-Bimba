@@ -19,7 +19,7 @@ public class Order {
 
     @OneToOne
     @JoinColumn(referencedColumnName = "client_id")
-    Customer cliente;
+    Client client;
 
     Boolean state;
 

@@ -1,13 +1,12 @@
 package com.negocioBimba.negocioBimba.service;
 
-import com.negocioBimba.negocioBimba.domain.Customer;
-
-import java.util.List;
-import java.util.Optional;
+import com.negocioBimba.negocioBimba.DTO.ClientDto;
+import com.negocioBimba.negocioBimba.domain.Client;
+import org.springframework.http.ResponseEntity;
 
 public interface ClientService {
-    void saveClient(Customer customer);
-    Optional<Customer> getClientById(Integer id);
-    List<Customer> getAllClients();
-    void deleteClient(Integer id);
+    ResponseEntity<?> saveClient(ClientDto clientDto);
+    ResponseEntity<?> getClientById(Integer id);
+    ResponseEntity<?> getAllClients();
+    ResponseEntity<?> deleteClient(Integer id);
 }

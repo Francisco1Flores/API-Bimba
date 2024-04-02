@@ -1,15 +1,11 @@
-package com.negocioBimba.negocioBimba.web;
+package com.negocioBimba.negocioBimba.controller;
 
 
 import com.negocioBimba.negocioBimba.DTO.ProductDto;
-import com.negocioBimba.negocioBimba.domain.Product;
 import com.negocioBimba.negocioBimba.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")

@@ -46,32 +46,21 @@ public class CategoryServiceImpl implements CategoryService {
                     ,HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(Message.builder()
-                                            .object(categoryDto)
-                                            .message("Category found")
-                                            .build()
-                                    ,HttpStatus.OK);
+        return new ResponseEntity<>(categoryDto, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> getAll() {
         List<CategoryDto> categoryDtoList = categoryConverter.toDto(categoryRepository.findAll());
-
-
-        return new ResponseEntity<>(Message
-                .builder()
-                .object(categoryDtoList)
-                .message("Categories found")
-                .build()
-                ,HttpStatus.OK);
+        return new ResponseEntity<>(categoryDtoList,HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> delete(Integer id) {
         return new ResponseEntity<>(Message.builder()
                 .object(null)
-                .message("Category found")
-                ,HttpStatus.OK);
+                .message("Category deleted")
+                ,HttpStatus.NO_CONTENT);
     }
 
 }

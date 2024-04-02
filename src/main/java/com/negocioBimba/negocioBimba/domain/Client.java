@@ -6,17 +6,16 @@ import lombok.Data;
 @Entity
 @Table(name = "clients")
 @Data
-public class Customer {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "client_id")
-    Integer idClient;
+    Integer clientId;
 
     String name;
     String contact;
     String email;
     String location;
-    Integer buys;
 
 }

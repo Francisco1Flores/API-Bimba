@@ -70,8 +70,8 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<?> update(Integer id, ProductDto productDto) {
 
         productDto.setId(id);
-
         Product existingProduct = productoRepository.findById(id).orElse(null);
+
         if (existingProduct == null) {
             Product newProduct = productoRepository.save(productConverter.toEntity(productDto));
             return new ResponseEntity<>(Message.builder()
