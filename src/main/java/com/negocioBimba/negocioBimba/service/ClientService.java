@@ -9,4 +9,5 @@ public interface ClientService {
     ResponseEntity<?> getClientById(Integer id);
     ResponseEntity<?> getAllClients();
     ResponseEntity<?> deleteClient(Integer id);
+    ResponseEntity<?> updateCLient(Integer id, ClientDto clientDto);
 }

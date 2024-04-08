@@ -32,6 +32,11 @@ public class ClientController {
 
     @RequestMapping(value = "/clients/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteById(@PathVariable Integer id) {
-        clientService.deleteClient(id);
+        return clientService.deleteClient(id);
+    }
+
+    @RequestMapping(value = "/clients/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> deleteById(@PathVariable Integer id, ClientDto clientDto) {
+        return clientService.updateCLient(id, clientDto);
     }
 }
