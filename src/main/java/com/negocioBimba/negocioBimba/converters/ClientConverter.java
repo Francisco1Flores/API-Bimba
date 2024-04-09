@@ -4,6 +4,7 @@ import com.negocioBimba.negocioBimba.DTO.ClientDto;
 import com.negocioBimba.negocioBimba.domain.Client;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

@@ -29,7 +29,7 @@ public class CategoriaController {
         return categoryService.getAll();
     }
 
-    @RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCategory(@PathVariable Integer id) {
         return categoryService.delete(id);
     }

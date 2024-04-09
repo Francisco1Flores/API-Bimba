@@ -67,11 +67,13 @@ public class ClientServiceImpl implements ClientService {
 
         clientDto.setClientId(id);
         Client existingClient = clientRepository.findById(id).orElse(null);
+        System.out.println("name: " + clientDto.getName() + " contact: " + clientDto.getContact());
 
         if (existingClient == null) {
             Client newClient = clientRepository.save(clientConverter.toEntity(clientDto));
+            System.out.println("name: " + newClient.getName() + " contact: " + newClient.getContact());
             return new ResponseEntity<>(Message.builder()
-                    .message("Product created")
+                    .message("Client created")
                     .object(clientConverter.toDto(newClient))
                     .build()
                     ,HttpStatus.CREATED);
@@ -84,7 +86,7 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.save(existingClient);
 
         return new ResponseEntity<>(Message.builder()
-                .message("Product updated")
+                .message("Client updated")
                 .object(clientConverter.toDto(existingClient))
                 .build()
                 ,HttpStatus.OK);

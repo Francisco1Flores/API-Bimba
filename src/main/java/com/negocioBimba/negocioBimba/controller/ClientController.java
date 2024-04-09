@@ -36,7 +36,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/clients/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> deleteById(@PathVariable Integer id, ClientDto clientDto) {
+    public ResponseEntity<?> deleteById(@PathVariable Integer id, @RequestBody ClientDto clientDto) {
         return clientService.updateCLient(id, clientDto);
     }
 }
