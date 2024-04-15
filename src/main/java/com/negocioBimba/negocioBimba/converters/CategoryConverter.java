@@ -1,7 +1,7 @@
 package com.negocioBimba.negocioBimba.converters;
 
 import com.negocioBimba.negocioBimba.DTO.CategoryDto;
-import com.negocioBimba.negocioBimba.domain.Category;
+import com.negocioBimba.negocioBimba.model.Category;
 import com.negocioBimba.negocioBimba.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

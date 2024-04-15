@@ -1,8 +1,8 @@
 package com.negocioBimba.negocioBimba.converters;
 
 import com.negocioBimba.negocioBimba.DTO.OrderDto;
-import com.negocioBimba.negocioBimba.domain.Order;
-import com.negocioBimba.negocioBimba.domain.Product;
+import com.negocioBimba.negocioBimba.model.Order;
+import com.negocioBimba.negocioBimba.model.Product;
 import com.negocioBimba.negocioBimba.repository.ClientRepository;
 import com.negocioBimba.negocioBimba.repository.ProductoRepository;
 import org.modelmapper.ModelMapper;

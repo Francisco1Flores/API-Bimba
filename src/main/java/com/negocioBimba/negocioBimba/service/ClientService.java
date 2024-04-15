@@ -1,7 +1,6 @@
 package com.negocioBimba.negocioBimba.service;
 
 import com.negocioBimba.negocioBimba.DTO.ClientDto;
-import com.negocioBimba.negocioBimba.domain.Client;
 import org.springframework.http.ResponseEntity;
 
 public interface ClientService {

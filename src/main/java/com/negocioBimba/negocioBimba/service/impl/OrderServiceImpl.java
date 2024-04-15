@@ -2,7 +2,7 @@ package com.negocioBimba.negocioBimba.service.impl;
 
 import com.negocioBimba.negocioBimba.DTO.OrderDto;
 import com.negocioBimba.negocioBimba.converters.OrderCoverter;
-import com.negocioBimba.negocioBimba.domain.Order;
+import com.negocioBimba.negocioBimba.model.Order;
 import com.negocioBimba.negocioBimba.repository.OrderRepository;
 import com.negocioBimba.negocioBimba.service.OrderService;
 import com.negocioBimba.negocioBimba.utils.Message;

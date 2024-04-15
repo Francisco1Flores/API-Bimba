@@ -2,7 +2,6 @@ package com.negocioBimba.negocioBimba.controller;
 
 
 import com.negocioBimba.negocioBimba.DTO.ClientDto;
-import com.negocioBimba.negocioBimba.domain.Client;
 import com.negocioBimba.negocioBimba.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

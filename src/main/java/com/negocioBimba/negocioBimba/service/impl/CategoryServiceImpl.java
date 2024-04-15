@@ -2,7 +2,7 @@ package com.negocioBimba.negocioBimba.service.impl;
 
 import com.negocioBimba.negocioBimba.DTO.CategoryDto;
 import com.negocioBimba.negocioBimba.converters.CategoryConverter;
-import com.negocioBimba.negocioBimba.domain.Category;
+import com.negocioBimba.negocioBimba.model.Category;
 import com.negocioBimba.negocioBimba.repository.CategoryRepository;
 import com.negocioBimba.negocioBimba.service.CategoryService;
 import com.negocioBimba.negocioBimba.utils.Message;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

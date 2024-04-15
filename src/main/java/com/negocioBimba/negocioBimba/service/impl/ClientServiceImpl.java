@@ -2,8 +2,7 @@ package com.negocioBimba.negocioBimba.service.impl;
 
 import com.negocioBimba.negocioBimba.DTO.ClientDto;
 import com.negocioBimba.negocioBimba.converters.ClientConverter;
-import com.negocioBimba.negocioBimba.domain.Client;
-import com.negocioBimba.negocioBimba.domain.Product;
+import com.negocioBimba.negocioBimba.model.Client;
 import com.negocioBimba.negocioBimba.repository.ClientRepository;
 import com.negocioBimba.negocioBimba.service.ClientService;
 import com.negocioBimba.negocioBimba.utils.Message;

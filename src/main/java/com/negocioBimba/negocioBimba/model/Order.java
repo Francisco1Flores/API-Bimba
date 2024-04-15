@@ -1,4 +1,4 @@
-package com.negocioBimba.negocioBimba.domain;
+package com.negocioBimba.negocioBimba.model;
 
 
 import jakarta.persistence.*;

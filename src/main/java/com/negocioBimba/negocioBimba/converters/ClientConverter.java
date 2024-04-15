@@ -1,10 +1,9 @@
 package com.negocioBimba.negocioBimba.converters;
 
 import com.negocioBimba.negocioBimba.DTO.ClientDto;
-import com.negocioBimba.negocioBimba.domain.Client;
+import com.negocioBimba.negocioBimba.model.Client;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
