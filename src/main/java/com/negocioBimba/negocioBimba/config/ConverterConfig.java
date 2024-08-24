@@ -1,8 +1,8 @@
 package com.negocioBimba.negocioBimba.config;
 
 import com.negocioBimba.negocioBimba.converters.CategoryConverter;
-import com.negocioBimba.negocioBimba.converters.ClientConverter;
-import com.negocioBimba.negocioBimba.converters.OrderCoverter;
+import com.negocioBimba.negocioBimba.converters.UserConverter;
+import com.negocioBimba.negocioBimba.converters.OrderConverter;
 import com.negocioBimba.negocioBimba.converters.ProductConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +19,13 @@ public class ConverterConfig {
     public CategoryConverter categoryConverter() {return new CategoryConverter();}
 
     @Bean
-    public ClientConverter clientConverter() {
-        return new ClientConverter();
+    public UserConverter clientConverter() {
+        return new UserConverter();
     }
 
     @Bean
-    public OrderCoverter orderCoverter() {
-        return new OrderCoverter();
+    public OrderConverter orderCoverter() {
+        return new OrderConverter();
     }
 
 }

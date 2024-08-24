@@ -13,7 +13,7 @@ import java.util.Set;
 public class OrderDto {
     Integer id;
     Integer client;
-    Boolean state;
+    Boolean stateOfPay;
     Date date;
-    Set<Integer> products;
+    Set<OrderProductDto> products;
 }

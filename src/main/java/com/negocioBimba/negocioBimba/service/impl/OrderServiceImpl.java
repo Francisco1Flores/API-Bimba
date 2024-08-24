@@ -1,8 +1,8 @@
 package com.negocioBimba.negocioBimba.service.impl;
 
 import com.negocioBimba.negocioBimba.DTO.OrderDto;
-import com.negocioBimba.negocioBimba.converters.OrderCoverter;
-import com.negocioBimba.negocioBimba.model.Order;
+import com.negocioBimba.negocioBimba.converters.OrderConverter;
+import com.negocioBimba.negocioBimba.model.CustomerOrder;
 import com.negocioBimba.negocioBimba.repository.OrderRepository;
 import com.negocioBimba.negocioBimba.service.OrderService;
 import com.negocioBimba.negocioBimba.utils.Message;
@@ -20,11 +20,11 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     @Autowired
-    OrderCoverter orderCoverter;
+    OrderConverter orderCoverter;
 
     @Override
     public ResponseEntity<?> create(OrderDto orderDto) {
-       Order orderEntity = orderRepository.save(orderCoverter.toEntity(orderDto));
+       CustomerOrder orderEntity = orderRepository.save(orderCoverter.toEntity(orderDto));
        return new ResponseEntity<>(Message.builder()
                .message("Product created")
                .object(orderCoverter.toDto(orderEntity))
@@ -59,4 +59,5 @@ public class OrderServiceImpl implements OrderService {
                 .build()
                 ,HttpStatus.NO_CONTENT);
     }
+
 }
