@@ -24,7 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<?> save(CategoryDto categoryDto) throws Exception {
-        Category category = categoryRepository.save(categoryConverter.toEntity(categoryDto));
+        Category category = categoryConverter.toEntity(categoryDto);
+        category = categoryRepository.save(category);
 
         return new ResponseEntity<>(Message.builder()
                                             .message("Category created")
@@ -38,11 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryDto categoryDto = categoryConverter.toDto(categoryRepository.findById(id).orElse(null));
 
         if (categoryDto == null) {
-            return new ResponseEntity<>(Message.builder()
-                    .object(null)
-                    .message("Category not found")
-                    .build()
-                    ,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(categoryDto, HttpStatus.OK);
@@ -56,10 +53,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<?> delete(Integer id) {
-        return new ResponseEntity<>(Message.builder()
-                .object(null)
-                .message("Category deleted")
-                ,HttpStatus.NO_CONTENT);
+        categoryRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

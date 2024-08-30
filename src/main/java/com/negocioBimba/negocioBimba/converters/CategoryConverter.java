@@ -2,7 +2,6 @@ package com.negocioBimba.negocioBimba.converters;
 
 import com.negocioBimba.negocioBimba.DTO.CategoryDto;
 import com.negocioBimba.negocioBimba.model.Category;
-import com.negocioBimba.negocioBimba.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,53 +13,35 @@ public class CategoryConverter implements Converter<CategoryDto, Category>{
     @Autowired
     ModelMapper modelMapper;
 
-    @Autowired
-    CategoryRepository categoryRepository;
-
     @Override
     public CategoryDto toDto(Category entity) {
-        if (entity == null) return null;
-
-        CategoryDto dto = modelMapper.map(entity, CategoryDto.class);
-
-        if (entity.getSupCategory() == 0) {
-            dto.setSupCategory("");
-            return dto;
+        if (entity == null) {
+            return null;
         }
-
-        dto.setSupCategory(categoryRepository.findById(entity.getSupCategory()).get().getName());
-
-        return dto;
+        return new CategoryDto(entity.getCategoryId(), entity.getName(), entity.getSupCategory());
     }
 
     @Override
     public Category toEntity(CategoryDto dto) {
-        if (dto == null) return null;
-
-        Category entity = new Category();
-        entity.setName(dto.getName());
-
-        if (dto.getSupCategory() == null) {
-            entity.setSupCategory(0);
-            return entity;
+        if (dto == null) {
+            return null;
         }
-
-        entity.setSupCategory(categoryRepository.findByName(dto.getSupCategory()).get().getCategoryId());
-
-        return entity;
+        return new Category(dto.getCategoryId(),dto.getName(),dto.getSupCategoryId());
     }
 
     @Override
     public List<CategoryDto> toDto(List<Category> entityList) {
-        if (entityList == null) return null;
-
-        return entityList.stream().map(e -> toDto(e)).collect(Collectors.toList());
+        if (entityList == null) {
+            return null;
+        }
+        return entityList.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
     public List<Category> toEntity(List<CategoryDto> dtoList) {
-        if (dtoList == null) return null;
-
-        return dtoList.stream().map(d -> toEntity(d)).collect(Collectors.toList());
+        if (dtoList == null) {
+            return null;
+        }
+        return dtoList.stream().map(this::toEntity).collect(Collectors.toList());
     }
 }

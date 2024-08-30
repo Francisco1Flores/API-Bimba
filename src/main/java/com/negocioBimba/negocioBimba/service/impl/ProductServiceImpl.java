@@ -4,7 +4,7 @@ package com.negocioBimba.negocioBimba.service.impl;
 import com.negocioBimba.negocioBimba.DTO.ProductDto;
 import com.negocioBimba.negocioBimba.converters.ProductConverter;
 import com.negocioBimba.negocioBimba.model.Product;
-import com.negocioBimba.negocioBimba.repository.ProductoRepository;
+import com.negocioBimba.negocioBimba.repository.ProductRepository;
 import com.negocioBimba.negocioBimba.service.ProductService;
 import com.negocioBimba.negocioBimba.utils.Message;
 import org.modelmapper.ModelMapper;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    ProductoRepository productoRepository;
+    ProductRepository productRepository;
 
     @Autowired
     ProductConverter productConverter;
@@ -29,37 +29,39 @@ public class ProductServiceImpl implements ProductService {
 
     
     @Override
-    public ResponseEntity<?> create(ProductDto productDto) throws Exception {
-        Product product = productoRepository.save(productConverter.toEntity(productDto));
+    public ResponseEntity<?> create(ProductDto productDto) {
+
+        Product product = productConverter.toEntity(productDto);
+        Product savedProduct = productRepository.save(product);
+        ProductDto savedProductDto = productConverter.toDto(savedProduct);
+
         return new ResponseEntity<>(Message.builder()
                                             .message("Product created")
-                                            .object(productConverter.toDto(product))
+                                            .object(savedProductDto)
                                             .build()
                                     ,HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> getProductById(Integer id) {
-        ProductDto productDto = productConverter.toDto(productoRepository.findById(id).orElse(null));
-        if (productDto == null) {
-            return new ResponseEntity<>(Message.builder()
-                                                .object(null)
-                                                .message("Product not found")
-                                                .build()
-                                        ,HttpStatus.NOT_FOUND);
+        Product product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        ProductDto productDto = productConverter.toDto(product);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> getAllProducts() {
-        List<ProductDto> listDto = productConverter.toDto(productoRepository.findAll());
-        return new ResponseEntity<>(listDto, HttpStatus.OK);
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productsDto = productConverter.toDto(products);
+        return new ResponseEntity<>(productsDto, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> delete(Integer id) {
-        productoRepository.deleteById(id);
+        productRepository.deleteById(id);
         return new ResponseEntity<>(Message.builder()
                                             .message("Product deleted")
                                             .build()
@@ -69,27 +71,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<?> update(Integer id, ProductDto productDto) {
 
-        productDto.setId(id);
-        Product existingProduct = productoRepository.findById(id).orElse(null);
+        Product existingProduct = productRepository.findById(id).orElse(null);
 
         if (existingProduct == null) {
-            Product newProduct = productoRepository.save(productConverter.toEntity(productDto));
-            return new ResponseEntity<>(Message.builder()
-                    .message("Product created")
-                    .object(productConverter.toDto(newProduct))
-                    .build()
-                    ,HttpStatus.CREATED);
+            return create(productDto);
         }
 
-        Product updateProduct = productConverter.toEntity(productDto);
+        productDto.setId(id);
+        Product updatedProduct = productConverter.toEntity(productDto);
 
-        modelMapper.map(updateProduct, existingProduct);
-
-        productoRepository.save(existingProduct);
+        productDto = productConverter.toDto(productRepository.save(updatedProduct));
 
         return new ResponseEntity<>(Message.builder()
                 .message("Product updated")
-                .object(productConverter.toDto(existingProduct))
+                .object(productDto)
                 .build()
                 ,HttpStatus.OK);
     }

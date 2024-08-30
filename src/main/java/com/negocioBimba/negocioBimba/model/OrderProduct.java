@@ -21,7 +21,7 @@ public class OrderProduct {
     @ManyToOne
     @JoinColumn(name = "order_id")
     @MapsId("customerOrderId")
-    private CustomerOrder customerOrder;
+    private UserOrder customerOrder;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

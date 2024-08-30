@@ -1,7 +1,7 @@
 package com.negocioBimba.negocioBimba.controller;
 
-import com.negocioBimba.negocioBimba.DTO.OrderDto;
-import com.negocioBimba.negocioBimba.service.OrderService;
+import com.negocioBimba.negocioBimba.DTO.UserOrderDto;
+import com.negocioBimba.negocioBimba.service.UserOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     @Autowired
-    OrderService orderService;
+    UserOrderService orderService;
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
-    public ResponseEntity<?> saveOrder(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<?> saveOrder(@RequestBody UserOrderDto orderDto) {
         return orderService.create(orderDto);
     }
 

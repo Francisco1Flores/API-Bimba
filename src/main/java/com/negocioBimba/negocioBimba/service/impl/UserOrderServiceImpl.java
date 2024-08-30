@@ -1,10 +1,10 @@
 package com.negocioBimba.negocioBimba.service.impl;
 
-import com.negocioBimba.negocioBimba.DTO.OrderDto;
+import com.negocioBimba.negocioBimba.DTO.UserOrderDto;
 import com.negocioBimba.negocioBimba.converters.OrderConverter;
-import com.negocioBimba.negocioBimba.model.CustomerOrder;
-import com.negocioBimba.negocioBimba.repository.OrderRepository;
-import com.negocioBimba.negocioBimba.service.OrderService;
+import com.negocioBimba.negocioBimba.model.UserOrder;
+import com.negocioBimba.negocioBimba.repository.UserOrderRepository;
+import com.negocioBimba.negocioBimba.service.UserOrderService;
 import com.negocioBimba.negocioBimba.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,27 +14,27 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class UserOrderServiceImpl implements UserOrderService {
 
     @Autowired
-    OrderRepository orderRepository;
+    UserOrderRepository orderRepository;
 
     @Autowired
-    OrderConverter orderCoverter;
+    OrderConverter orderConverter;
 
     @Override
-    public ResponseEntity<?> create(OrderDto orderDto) {
-       CustomerOrder orderEntity = orderRepository.save(orderCoverter.toEntity(orderDto));
+    public ResponseEntity<?> create(UserOrderDto orderDto) {
+       UserOrder orderEntity = orderRepository.save(orderConverter.toEntity(orderDto));
        return new ResponseEntity<>(Message.builder()
-               .message("Product created")
-               .object(orderCoverter.toDto(orderEntity))
+               .message("Order created")
+               .object(orderConverter.toDto(orderEntity))
                .build()
                , HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> getOrderById(Integer id) {
-        OrderDto orderDto = orderCoverter.toDto(orderRepository.findById(id).orElse(null));
+        UserOrderDto orderDto = orderConverter.toDto(orderRepository.findById(id).orElse(null));
         if (orderDto == null)
             return new ResponseEntity<>(Message.builder()
                     .object(null)
@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseEntity<?> getAllOrders() {
-        List<OrderDto> listDto = orderCoverter.toDto(orderRepository.findAll());
+        List<UserOrderDto> listDto = orderConverter.toDto(orderRepository.findAll());
         return new ResponseEntity<>(listDto, HttpStatus.OK);
     }
 
@@ -58,6 +58,11 @@ public class OrderServiceImpl implements OrderService {
                 .message("Order deleted")
                 .build()
                 ,HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<?> updateOrder(Integer id) {
+        return null;
     }
 
 }

@@ -1,11 +1,13 @@
 package com.negocioBimba.negocioBimba.service;
 
-import com.negocioBimba.negocioBimba.DTO.OrderDto;
+import com.negocioBimba.negocioBimba.DTO.UserOrderDto;
 import org.springframework.http.ResponseEntity;
 
-public interface OrderService {
-    ResponseEntity<?> create(OrderDto orderDto);
+public interface UserOrderService {
+    ResponseEntity<?> create(UserOrderDto orderDto);
     ResponseEntity<?> getOrderById(Integer id);
     ResponseEntity<?> getAllOrders();
     ResponseEntity<?> deleteOrder(Integer id);
+    ResponseEntity<?> updateOrder(Integer id);
+
 }

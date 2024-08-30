@@ -8,10 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CategoryDto {
-
     private Integer categoryId;
-
     private String name;
-
-    private String supCategory;
+    private Integer supCategoryId;
 }

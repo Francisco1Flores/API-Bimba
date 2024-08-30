@@ -1,6 +1,7 @@
 package com.negocioBimba.negocioBimba.converters;
 
 import com.negocioBimba.negocioBimba.DTO.ProductDto;
+import com.negocioBimba.negocioBimba.model.Category;
 import com.negocioBimba.negocioBimba.model.Product;
 import com.negocioBimba.negocioBimba.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
@@ -19,31 +20,45 @@ public class ProductConverter implements Converter<ProductDto, Product>{
 
     @Override
     public ProductDto toDto(Product entity) {
-        if (entity == null) return null;
-        ProductDto productDto = modelMapper.map(entity, ProductDto.class);
-        if (entity.getCategory() != null)
-            productDto.setCategory(entity.getCategory().getName());
-        else
-            productDto.setCategory(null);
-        return productDto;
+        if (entity == null) {
+            return null;
+        }
+        return new ProductDto(
+                entity.getId(),
+                entity.getName(),
+                entity.getPrice(),
+                entity.getStock(),
+                entity.getCategory().getCategoryId()
+        );
     }
 
     @Override
     public Product toEntity(ProductDto dto) {
-        Product product = modelMapper.map(dto, Product.class);
-        product.setCategory(categoryRepository.findByName(dto.getCategory()).orElse(null));
-        return product;
+        if (dto == null) {
+            return null;
+        }
+        Category category = categoryRepository.findById(dto.getCategory()).orElse(null);
+        if (category == null) {
+            category = categoryRepository.findById(0).orElse(null);
+        }
+        return new Product(
+                dto.getId(),
+                dto.getName(),
+                dto.getPrice(),
+                dto.getStock(),
+                category
+                );
     }
 
     @Override
     public List<ProductDto> toDto(List<Product> entityList) {
         if (entityList == null) return null;
-        return entityList.stream().map(entity -> toDto(entity)).collect(Collectors.toList());
+        return entityList.stream().map(this::toDto).toList();
     }
 
     @Override
     public List<Product> toEntity(List<ProductDto> dtoList) {
         if (dtoList == null) return null;
-        return dtoList.stream().map(dto -> toEntity(dto)).collect(Collectors.toList());
+        return dtoList.stream().map(this::toEntity).toList();
     }
 }

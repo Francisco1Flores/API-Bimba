@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderDto {
+public class UserOrderDto {
     Integer id;
     Integer client;
     Boolean stateOfPay;

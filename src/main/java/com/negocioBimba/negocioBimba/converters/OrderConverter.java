@@ -1,13 +1,13 @@
 package com.negocioBimba.negocioBimba.converters;
 
-import com.negocioBimba.negocioBimba.DTO.OrderDto;
+import com.negocioBimba.negocioBimba.DTO.UserOrderDto;
 import com.negocioBimba.negocioBimba.DTO.OrderProductDto;
-import com.negocioBimba.negocioBimba.model.CustomerOrder;
+import com.negocioBimba.negocioBimba.model.UserOrder;
 import com.negocioBimba.negocioBimba.model.OrderProduct;
 import com.negocioBimba.negocioBimba.model.embeddedIds.OrderProductId;
 import com.negocioBimba.negocioBimba.repository.UserRepository;
 import com.negocioBimba.negocioBimba.repository.OrderProductRepository;
-import com.negocioBimba.negocioBimba.repository.ProductoRepository;
+import com.negocioBimba.negocioBimba.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,13 +16,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class OrderConverter implements Converter<OrderDto, CustomerOrder> {
+public class OrderConverter implements Converter<UserOrderDto, UserOrder> {
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
-    private ProductoRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     UserRepository clientRepository;
@@ -31,14 +31,14 @@ public class OrderConverter implements Converter<OrderDto, CustomerOrder> {
     OrderProductRepository orderProductRepository;
 
     @Override
-    public OrderDto toDto(CustomerOrder entity) {
+    public UserOrderDto toDto(UserOrder entity) {
         if (entity == null)
             return null;
         Set<OrderProductDto> productsDtos = entity.getProducts().stream()
                 .map((p) -> new OrderProductDto(p.getProduct().getId(), p.getQuantity()))
                 .collect(Collectors.toSet());
 
-        return OrderDto.builder().
+        return UserOrderDto.builder().
                 id(entity.getId())
                 .client(entity.getUser().getUserId())
                 .stateOfPay(entity.getStateOfPay())
@@ -48,13 +48,13 @@ public class OrderConverter implements Converter<OrderDto, CustomerOrder> {
     }
 
     @Override
-    public CustomerOrder toEntity(OrderDto dto) {
+    public UserOrder toEntity(UserOrderDto dto) {
         if (dto == null) {
             return null;
         }
 
         Set<OrderProduct> products = new HashSet<>();
-        CustomerOrder entity = new CustomerOrder();
+        UserOrder entity = new UserOrder();
 
         for (OrderProductDto product : dto.getProducts()) {
             OrderProductId orderProductId = new OrderProductId(dto.getId(), product.getProduct());
@@ -70,14 +70,14 @@ public class OrderConverter implements Converter<OrderDto, CustomerOrder> {
     }
 
     @Override
-    public List<OrderDto> toDto(List<CustomerOrder> entityList) {
+    public List<UserOrderDto> toDto(List<UserOrder> entityList) {
         if (entityList == null)
             return null;
         return entityList.stream().map(this::toDto).toList();
     }
 
     @Override
-    public List<CustomerOrder> toEntity(List<OrderDto> dtoList) {
+    public List<UserOrder> toEntity(List<UserOrderDto> dtoList) {
         if (dtoList == null)
             return null;
         return dtoList.stream().map(this::toEntity).toList();
